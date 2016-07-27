@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<title>测试平台-网关能力实例</title>
+		{% load staticfiles %} <link href="{% static  "css/css.css"%}"  type="text/css" rel="stylesheet">
+		{% load staticfiles %} <link rel="icon"  href="{% static "images/net.ico" %}"   type="image/x-icon" />
+		{% load staticfiles %} <script type="text/javascript" src="{% static "jslib/jquery.js" %}" ></script>
+		{% load staticfiles %} <script type="text/javascript" src="{% static "jslib/jsutils.js" %}" ></script>
+		{% load staticfiles %} <script type="text/javascript" src="{% static "jslib/autocomplete.js" %}" ></script>
+		
+		<script language="JavaScript" type="text/JavaScript">
+			function macadd()
+			{
+				parent.window.location.href='mac_add.jsp';
+        	}
+		</script>
+    </head>
+
+	<body>
+		<header>
+		<div class="header">
+			<div class="he_img">
+				{% load staticfiles %}  <a href="/main.html" target="_bank"> <img src="{% static "images/data_bg3.png" %}"> </a>
+			</div>
+		</div>
+		</header>
+		<nav>
+		<div class="nav">
+			<a href="/index.html">首页</a>
+			<a href="/addonu.html">新增测试设备</a>
+			<a href="/ceshi.html">平台对接测试</a>
+			<a href="/wgnlcs.html" class="na-hover">网关能力测试</a>
+		</div>
+		</nav>
+		<article>
+		<div class="article">
+			<div class="ar-table">
+				<form action="/addonucmd/" method="get" >
+				<table width="700" border="0" cellspacing="0" cellpadding="0">
+					<tr>
+						<td height="50" colspan="2">
+							<div
+								style="padding-top: 20px; width: 400px; float: left; padding-bottom: 20px;">
+								<span>选择网关mac</span>
+								<input name="macAddr" id="macID" style="width: 210px;" />
+							</div>
+						</td>
+					</tr>
+					<tr>
+						<td width="613" height="30">
+							<p>选择上传指令文件：<input type="file" name="cmdname" id='fileb' onchange='bShow()'/></p>
+						</td>
+					</tr>
+                    <tr>
+                        <td width="613" height="200">
+                            <span>指令内容为：</span>
+                            <textarea name="cmdinfo" id="contentb" cols="120" rows="8">
+命令格式如下：
+[MAIN]
+val=1
+[CMD]
+cmdname1=6.5 查询CPU占用率
+cmdinfo1={"RPCMethod":"Post" , "ID":0000,"Plugin_Name": "test","Version":"1.0","Parameter":
+cmdpara1={"CmdType":"QUERY_CPU_INFO", "SequenceId":"1234567b"}
+                            </textarea>
+                            <br>
+                        </td>
+                    </tr>
+					<tr>
+						<td height="20" colspan="2" align="center">
+							<input name="" type="submit" value="提交"  id="contentb" onclick="return checkSubmit() " class="button">
+						</td>
+					</tr>
+                    <tr>
+                        <td height="40" colspan="2" align="center" style="padding-top: 2px;">
+                            <span  style="font-weight: bold; color: #666">{{ ResponseOfOnuRun }}</span> <br>
+                            <span  style="font-weight: bold; color: #666">{{ AddOnuCmddata }}</span>
+                        </td>
+                    </tr>
+				</table>
+				</form>
+			</div>
+		</div>
+		</article>
+	</body>
+</html>

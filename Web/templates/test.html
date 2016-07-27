@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+ 	<head>
+		<meta charset="utf-8" />
+		<title>测试平台-网关能力实例</title>
+		{% load staticfiles %} <link href="{% static "css/css.css" %}" type="text/css" rel="stylesheet">
+		{% load staticfiles %} <link rel="icon"  href="{% static "images/net.ico" %}"  type="image/x-icon" />
+	</head>
+<body>
+    <p>请输入两个数字</p>
+    <form action="/SendOnu/" method="get">
+        Mode:    <input type="text" name="Mode" maxlength="12" size="20" > <br>
+        Mac:     <input type="text" name="Mac" maxlength="12" size="20" > <br>
+        SSID:    <input type="text" name="SSID" maxlength="13" size="20" > <br>
+        SSID-Pwd:<input type="text" name="SSID-Pwd" maxlength="12" size="20" > <br>
+        User-Pwd:<input type="text" name="User-Pwd" maxlength="12" size="20" > <br>
+        SN:      <input type="text" name="SN" maxlength="25" size="20" > <br>
+        <input type="submit" value="提交">
+    </form>
+</body>
+</html>+
+
+<!--
+		<article>
+		<div class="article"
+			style="padding-top: 5%; padding-bottom: 5%; text-align: center;">
+			<h1 style="color: #35a200; font-size: 26px">
+                测试平台添加设备
+			</h1>
+		</div>
+		<div style="padding-top: 5%; padding-bottom: 5%; text-align: center;">
+            <form action="/addonu/" method="get">
+                <!--<input type="text" value="请输入内容" onfocus="javascript:if(this.value=='请输入内容')this.value='';">-->
+<!--			    <h1 style="color: #35a200; font-size: 5px text-align: left;">
+                    设备型号（Mode）:    <br>
+			    </h1>
+                <input type="text " name="Mode" maxlength="12" size="20"  value="ZXHN F450G"  >  <br>
+                设备硬件Mac:         <br>
+                <input type="text" name="Mac" maxlength="12" size="20"  value="001122334455" onfocus="javascript:if(this.value=='001122334455')this.value='';" >  <br>
+                无线名称（SSID）:    <br>
+                <input type="text" name="SSID" maxlength="13" size="20"  value="ChinaNet-0000" onfocus="javascript:if(this.value=='ChinaNet-0000')this.value='';" >  <br>
+                无线密码SSID-Pwd:    <br>
+                <input type="text" name="SSID-Pwd" maxlength="12" size="20"  value="12345678" onfocus="javascript:if(this.value=='12345678')this.value='';" > <br>
+                用户密码User-Pwd:    <br>
+                <input type="text" name="User-Pwd" maxlength="12" size="20"  value="12345" onfocus="javascript:if(this.value=='12345')this.value='';" >   <br>
+                设备SN:              <br>
+                <input type="text" name="SN" maxlength="25" size="20" value="123456-12345001122334455" onfocus="javascript:if(this.value=='123456-12345001122334455')this.value='';" >  <br>
+                <br> <br>
+                <input type="submit" value="提交">
+            </form>
+        </div>
+        </article>
+
+-->

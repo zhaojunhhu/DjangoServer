@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<title>测试平台-平台对接测试</title>
+		{% load staticfiles %} <link href="{% static "css/css.css " %}" type="text/css" rel="stylesheet">
+		{% load staticfiles %} <link rel="icon"  href="{% static "images/net.ico"  %}"  type="image/x-icon" />
+		{% load staticfiles %} <script type="text/javascript" src="{% static "jslib/jquery.js"  %}"></script>
+		{% load staticfiles %} <script type="text/javascript" src="{% static "jslib/jsutils.js"  %}"></script>
+		{% load staticfiles %} <script type="text/javascript" src="{% static "jslib/autocomplete.js"  %}"></script>
+	</head>
+	<body>
+		<header>
+		<div class="header">
+			<div class="he_img">
+				{% load staticfiles %} <a href="/main.html" target="_bank"> <img src="{% static "images/data_bg3.png" %}"> </a>
+			</div>
+		</div>
+		</header>
+		<nav>
+		<div class="nav">
+			<a href="/index.html">首页</a>
+			<a href="/addonu.html">新增测试设备</a>
+			<a href="/ceshi.html" class="na-hover">平台对接测试</a>
+			<a href="/wgnlcs.html">网关能力测试</a>
+		</div>
+		</nav>
+		<article>
+		<div class="article">
+			<div class="ar-table">
+                <form action="/addonurun/" method="get" >
+                    <table width="700" border="0" cellspacing="0" cellpadding="0">
+                        <tr>
+                            <td height="50" colspan="2">
+                                <div
+                                    style="padding-top: 20px; width: 400px; float: left; padding-bottom: 20px;">
+                                    <span>请输入待测试网关MAC地址</span>
+                                    <input name="macAddr" id="macID" style="width: 210px;"/>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="3" height="50">
+                                <!--<div class="ziying-button" id="div_ziying_id" onclick="tableswitch(0)">
+                                    <span>自营平台接口设置</span>
+                                </div> -->
+                                <div class="ce-button" id="div_operate_id" onclick="tableswitch(1)">
+                                    <span>运营平台接口设置</span>
+                                </div>
+                                <div class="ce-none" id="div_route_id" onclick="tableswitch(2)">
+                                    <span>分发平台接口设置</span>
+                                </div>
+                            </td>
+                        </tr>
+                    </table>
+            <div>
+				<table width="700" border="0" cellspacing="0" cellpadding="0" id="operate_id">
+					<tr>
+						<td colspan="2" height="40"
+							style="padding-left: 10px; border-bottom: 1px #ccc dotted">
+							<span style="font-weight: bold; color: #666">网关状态同步协议</span>
+						</td>
+					</tr>
+					<tr>
+						<td width="300" height="40">
+							<span>a)&nbsp;&nbsp;网关向运营平台注册</span>
+						</td>
+						<td width="400">
+							<select name="AA1" style="width: 400px;">
+								<option value="00">
+									未设置
+								</option>
+								<option value="0">
+									返回0同时返回ChallengeCode
+								</option>
+								<option value="-1">
+									返回-1，或平台响应超时
+								</option>
+								<option value="-2">
+									返回-2时，表示网关提交信息不合法。
+								</option>
+								<option value="-5">
+									返回-5时，网关开始重新注册。
+								</option>
+							</select>
+						</td>
+					</tr>
+					<tr>
+						<td height="40">
+							<span>b)&nbsp;&nbsp;网关向运营平台注册（2）</span>
+						</td>
+						<td>
+							<select name="AA2" style="width: 400px;">
+								<option value="00">
+									未设置
+								</option>
+								<option value="2">
+									返回2，UserID值是否与平台先前保存该网关的UserID相同
+								</option>
+								<option value="3">
+									返回3，UserID不相同或不存在，网关恢复出厂设置（7.38接口能力）
+								</option>
+								<option value="-1">
+									平台响应超时，网关重新发起平台注册
+								</option>
+								<option value="-2">
+									返回-2时，静默150分钟，再重新进行网关向平台注册
+								</option>
+								<option value="-5">
+									返回-5时，网关开始重新注册。
+								</option>
+							</select>
+						</td>
+					</tr>
+					<tr>
+						<td height="40">
+							<span>c)&nbsp;&nbsp;心跳保活</span>
+						</td>
+						<td>
+							<select name="AA3" style="width: 400px;">
+								<option value="00">
+									未设置
+								</option>
+								<option value="0">
+									保持正常心跳，间隔30秒
+								</option>
+								<option value="-1">
+									如果30秒内没有收到回复
+								</option>
+								<option value="-3">
+									返回-3,需要网关重新向平台注册
+								</option>
+								<option value="-5">
+									返回-5, 网关重新连接其它服务器
+								</option>
+							</select>
+						</td>
+					</tr>
+					<tr>
+						<td height="40">
+							<span>d)&nbsp;&nbsp;反向触发网关连接到插件中心</span>
+						</td>
+						<td>
+							<select name="AA4" style="width: 400px;">
+								<option value="00">
+									未设置
+								</option>
+								<option value="0">
+									正常流程测试
+								</option>
+								<option value="-1">
+									平台返回-1，重新开始网关向平台注册（1）
+								</option>
+							</select>
+						</td>
+					</tr>
+					<tr>
+						<td height="40">
+							<span>e)&nbsp;&nbsp;反向触发网关重新注册</span>
+						</td>
+						<td>
+							<select name="AA5" style="width: 400px;">
+								<option value="00">
+									未设置
+								</option>
+								<option value="0">
+									正常流程测试
+								</option>
+								<option value="-1">
+									平台返回-1，重新开始网关向平台注册（1）
+								</option>
+							</select>
+						</td>
+					</tr>
+					<tr>
+						<td height="40">
+							<span>f)&nbsp;&nbsp;触发网关和插件中心断开连接。</span>
+						</td>
+						<td>
+							<select name="AA6" style="width: 400px;">
+								<option value="00">
+									未设置
+								</option>
+								<option value="0">
+									触发网关和插件中心断开连接！
+								</option>
+							</select>
+						</td>
+					</tr>
+				</table>
+				<table width="700" border="0" cellspacing="0" cellpadding="0" id="route_id" style="display: none">
+					<tr>
+						<td colspan="2" height="40"
+							style="padding-left: 10px; border-bottom: 1px #ccc dotted">
+							<span style="font-weight: bold; color: #666">网关状态同步协议</span>
+						</td>
+					</tr>
+					<tr>
+						<td width="300" height="40">
+							<span>a)网关向分发平台注册</span>
+						</td>
+						<td width="400">
+							<select name="A1" style="width: 400px;">
+								<option value="00">
+									未设置
+								</option>
+								<option value="0" >
+									返回0, 连接成功
+								</option>
+								<option value="-1">
+									返回-1，不响应
+								</option>
+								<option value="-2">
+									返回-2，静默150分钟再重新注册
+								</option>
+							</select>
+						</td>
+					</tr>
+					<tr>
+						<td height="40">
+							<span>b)网关向分发平台注册（2）</span>
+						</td>
+						<td>
+							<select name="A2" style="width: 400px;">
+								<option value="00">
+									未设置
+								</option>
+								<option value="2">
+									返回2, 连接成功
+								</option>
+								<option value="-11">
+									平台没有响应，终端应用相同服务器端口重试
+								</option>
+								<option value="-12">
+									运营平台响应超时，网关向分发平台发起平台注册
+								</option>
+								<option value="-2">
+									返回-2，静默150分钟重新注册
+								</option>
+							</select>
+						</td>
+					</tr>
+
+				</table>
+
+				<table width="700" border="0" cellspacing="0" cellpadding="0">
+					<tr>
+						<td height="20" colspan="2" align="center">
+							<input name="" type="submit" value="提交" onclick="return checkSubmit()" class="button">
+						</td>
+					</tr>
+                    <tr>
+                        <td height="20" colspan="2" align="center" style="padding-top: 2px;">
+                            <span  style="font-weight: bold; color: #666">{{ ResponseOfCeshi }}</span> <br>
+                            <span  style="font-weight: bold; color: #666">{{ AddOnuRun }}</span>
+                        </td>
+                    </tr>
+				</table>
+			</div>
+		</div>
+		</article>
+	</body>
+</html>

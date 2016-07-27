@@ -1,0 +1,47 @@
+@charset "utf-8";
+/* CSS Document */
+body {font:normal 12px,"Lucida Grande",Verdana,"Microsoft Yahei",STXihei,hei;color:#000;background:#fff;overflow-x:hidden;-webkit-text-size-adjust:none;-moz-user-select:none;background:#fff; height: 700px;}
+body, h1, h2, h3, h4, h5, h6, p, ul, ol, li, form, img, dl, dt, dd, table, th, td, blockquote, fieldset, div, strong, label, em {margin: 0;padding: 0;border: 0;}
+img{ border:none; max-width:100%}
+a{ text-decoration:none;font-size:12px}
+a:hover{ text-decoration:none;font-size:12px}
+ul,li{ padding:0; margin:0; list-style-type:none;}
+
+.index{ background:url(../images/bg.jpg) repeat;}
+
+header,nav,article{ width:100%; overflow:hidden;}
+.header,.nav,.article{ width:1000px; margin:0 auto; overflow:hidden; }
+.header{ padding-bottom:10px;padding-top:10px;}
+.he_img{ padding:0 1px 0 1px; float:left}
+
+
+h2{ color:#666; float:left; line-height:80px; }
+
+.nav{ background:url(../images/normal.png) repeat-x; height:36px; line-height:36px;}
+.nav a{ width:130px; text-align:center; color:#fff; font-size:14px; float:left; border-right:1px #349c68 solid}
+.nav a:hover{color:#fff; font-size:14px; font-weight:bold; background:url(../images/on.png) repeat-x; height:36px;width:130px; float:left }
+.na-hover{color:#fff; font-size:14px; font-weight:bold; background:url(../images/on.png) repeat-x; height:36px;width:130px; float:left}
+
+.article{ padding-top:10px; padding-bottom:10px;}
+.ar-table{padding-top:10px; width:800px; margin:0 auto}
+.span_66{ color:#666; font-size:12px}
+.article span{ font-size:12px}
+.article a{ font-size:12px;color: #39C;}
+.article a:hover{ font-size:12px;color: #39C; text-decoration:underline}
+.srk {float: left;background: #FBFBFB;height: 29px;width: 271px;border: 1px #CCC solid;padding-left: 15px;color: #666;line-height: 29px;}
+.button{  margin-right:10px; padding:5px 20px 5px 20px}
+
+.ce-none{ width:140px; height:30px; line-height:30px; background:#c7e4ef; border-radius:3px; text-align:center; color:#666; font-size:14px; float:left; margin-left:5px;}
+.ce-button{ width:140px; height:30px; line-height:30px; background:#5c6377; border-radius:3px; text-align:center; color:#333; font-size:14px; font-weight:bold; float:left;margin-left:5px;}
+.ziying-button{ width:140px; height:30px; line-height:30px; background:#2b6377; border-radius:3px; text-align:center; color:#333; font-size:14px; font-weight:bold; float:left;margin-left:5px;}
+.zjwj{float: left;background: #FBFBFB;height: 25px;width:330px;border: 1px #CCC solid;padding-left: 15px;color: #666;line-height: 25px; margin-top:3px;}
+
+/*---------------搜索框自动补全---------------------*/
+#mac_popup{background-color:white;position:fixed;margin-top:42px;margin-left:72px; width: 210px;color: black; font-size: 12px;font-family: Arial,Helvetica,sans-serif;z-index: 99;}
+#mac_popup.show{border: 1px solid #004a7e;}
+#mac_popup.hide{border: none;}
+	/*提示框的样式风格*/
+#mac_popup ul{list-style: none;margin: 0px; padding: 0px;background: #red}
+#mac_popup ul li{height: 25px;}
+#mac_popup li.mouseOver{background-color: gray;}
+#mac_popup li.mouseOut{background-color: #FFFFFF;}
