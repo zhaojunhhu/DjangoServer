@@ -5,22 +5,23 @@ from .UdpSend import SendToUdpserver
 import json,re
 
 def FindOnu(request):
-	data = {"CmdType":"FindOnu","data":{}}
+	data = {"CmdType":"FindOnu","OnumacAddr":"0000",}
 	Mac = request.GET['FindMac']
-	data["data"]["Mac"] = Mac
+	data["OnumacAddr"] = Mac
 	t = loader.get_template("addonu.html")
-	ResponseOfServerfind = u"连接服务器失败！"
+	ResponseOfServerfind = ''
 	try:
 		Reult = SendToUdpserver(json.dumps(data))
-		if Reult=='1001OK':
-			ResponseOfServerfind = u"查询设备成功"
-		elif Reult=='2001NOK':
+		if Reult=='2001NOK':
 			ResponseOfServerfind = u"查询设备失败！"
-		elif Reult=='None':
-			ResponseOfServerfind = u"连接服务器失败！"
+			Reult = ''
+		#elif Reult=='None':
+		#	ResponseOfServerfind = u"连接服务器失败！"
+		#	Reult = ''
+		#print Reult
 	finally:
-		AddOnuInfodata = u"当前提交信息为："+str(json.dumps(data))
-		c = Context({"ResponseOfServerfind":ResponseOfServerfind,"addonudatasfind":AddOnuInfodata})
+		#AddOnuInfodata = u"当前提交信息为："+str(json.dumps(data))
+		c = Context({"ResponseOfServerfind":ResponseOfServerfind,"addonudatasfind":Reult})
 	return HttpResponse(t.render(c))
 
 

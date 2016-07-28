@@ -8,15 +8,17 @@ def SendToUdpserver(data):
     ADDR = (HOST, PORT)
     udpCliSock = socket(AF_INET, SOCK_DGRAM)
     udpCliSock.sendto(data,ADDR)
-    data = 'None'
+    datas = 'None'
     try:
         data,ADDR = udpCliSock.recvfrom(BUFSIZE)
         if data == '1001OK':
-            data = '1001OK'
+            datas = '1001OK'
         elif data == '2001NOK':
-            data = '2001NOK'
+            datas = '2001NOK'
+        elif data == 'None':
+             datas = 'None'
         else:
-            data = 'None'
+            datas =data
     finally:
         udpCliSock.close()
-        return  data
+        return  datas
