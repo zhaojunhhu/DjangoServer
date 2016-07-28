@@ -9,6 +9,7 @@ urlpatterns = patterns('Web.views',
     url(r'^wgnlcs.html/','wgnlcs',name='wgnlcs.html'),
     url(r'^test.html/','test',name='test.html'),
     url(r'^addonudatas/?','SendOnu'),
+    url(r'^onudatasfind/ ?','FindOnu'),
     url(r'^addonucmd/?','AddOnuCmd'),
     url(r'^addonurun/?','Addonurun'),
 )

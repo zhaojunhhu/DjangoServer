@@ -4,6 +4,26 @@ from django.template import loader,Context
 from .UdpSend import SendToUdpserver
 import json,re
 
+def FindOnu(request):
+	data = {"CmdType":"FindOnu","data":{}}
+	Mac = request.GET['FindMac']
+	data["data"]["Mac"] = Mac
+	t = loader.get_template("addonu.html")
+	ResponseOfServerfind = u"连接服务器失败！"
+	try:
+		Reult = SendToUdpserver(json.dumps(data))
+		if Reult=='1001OK':
+			ResponseOfServerfind = u"查询设备成功"
+		elif Reult=='2001NOK':
+			ResponseOfServerfind = u"查询设备失败！"
+		elif Reult=='None':
+			ResponseOfServerfind = u"连接服务器失败！"
+	finally:
+		AddOnuInfodata = u"当前提交信息为："+str(json.dumps(data))
+		c = Context({"ResponseOfServerfind":ResponseOfServerfind,"addonudatasfind":AddOnuInfodata})
+	return HttpResponse(t.render(c))
+
+
 def SendOnu(request):
 	data = {"CmdType":"AddOnu","data":{}}
 	Mode = request.GET['Mode']
