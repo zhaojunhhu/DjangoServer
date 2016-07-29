@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<title>测试平台-网关能力实例</title>
+		{% load staticfiles %} <link href="{% static "css/css.css" %}" type="text/css" rel="stylesheet">
+		{% load staticfiles %} <link rel="icon"  href="{% static "images/net.ico" %}"  type="image/x-icon" />
+
+        <script language="JavaScript" type="text/JavaScript">
+			function macadd()
+			{
+				parent.window.location.href='mac_add.jsp';
+        	}
+		</script>
+	</head>
+	<body>
+		<header>
+		<div class="header">
+			<div class="he_img">
+				{% load staticfiles %} <a href="/main.html" target="_bank"> <img src="{% static  "images/data_bg3.png" %}" > </a>
+			</div>
+		</div>
+		</header>
+		<nav>
+		<div class="nav">
+			<a href="/index.html" class="na-hover">首页</a>
+			<a href="/addonu.html">新增测试设备</a>
+			<a href="/ceshi.html">平台对接测试</a>
+			<a href="/wgnlcs.html">网关能力测试</a>
+            <a href="/kuaizhao.html">获取服务器信息</a>
+		</div>
+		</nav>
+		<article>
+		<div class="article">
+			<h1 style="color: #35a200; font-size: 20px" align="center">
+                获取当前服务器待测试设备配置信息
+			</h1>
+            <div class="ar-table">
+                <form action="/kuaizhaoinfo/" method="get">
+                    <table width="600" border="0" cellspacing="0" cellpadding="0">
+                        <tr>
+                            <td height="20" colspan="2" >
+                                <div
+                                    style="padding-top: 2px; width: 400px; float: left; padding-bottom: 2px;">
+                                    <span>物理地址&nbsp;&nbsp;</span>
+                                    <input type="text " name="FindMac" id="MacID" style="width: 210px;" maxlength="12" value="112233445566" />
+                                </div>
+                            </td>
+                            <td height="20" colspan="2" align="center" style="padding-top: 2px;">
+                                <input name="" type="submit" value="获取快照" class="button">
+                            </td>
+                         </tr>
+                        <tr>
+                        <tr>
+                            <td height="40" colspan="2" align="center" style="padding-top: 2px;">
+                                <span  style="font-weight: bold; color: #666">{{ ResponseOfServerfind }}</span> <br>
+                                <span  style="font-weight: bold; color: #666">{{ addonudatasfind }}</span>
+                            </td>
+                        </tr>
+                    </table>
+                </form>
+            </div>
+		</div>
+
+		</article>
+	</body>
+</html>

@@ -105,6 +105,13 @@ def AddOnuCmd(request):
 		c = Context({"ResponseOfOnuRun":ResponseOfOnuRun,"AddOnuCmddata":AddOnuCmddata})
 	return HttpResponse(t.render(c))
 
+
+def GetKuaiZhao(request):
+	t = loader.get_template("kuaizhao.html")
+	c = Context({})
+	return HttpResponse(t.render(c))
+
+
 def test(request):
 	t = loader.get_template("test.html")
 	c = Context({})
@@ -128,5 +135,10 @@ def ceshi(request):
 	return HttpResponse(t.render(c))
 def wgnlcs(request):
 	t = loader.get_template("wgnlcs.html")
+	c = Context({})
+	return HttpResponse(t.render(c))
+
+def kuaizhao(request):
+	t = loader.get_template("kuaizhao.html")
 	c = Context({})
 	return HttpResponse(t.render(c))
