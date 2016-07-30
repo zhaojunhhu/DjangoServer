@@ -11,12 +11,9 @@ def SendToUdpserver(data):
     datas = 'None'
     try:
         data,ADDR = udpCliSock.recvfrom(BUFSIZE)
-        if data == '1001OK':
-            datas = '1001OK'
-        elif data == '2001NOK':
-            datas = '2001NOK'
-        elif data == 'None':
-             datas = 'None'
+        if not data:
+            udpCliSock.close()
+            return  'None'
         else:
             datas =data
     finally:

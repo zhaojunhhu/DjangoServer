@@ -4,6 +4,7 @@ from django.template import loader,Context
 from .UdpSend import SendToUdpserver
 import json,re
 
+####DiangoWeb查询设备录入信息
 def FindOnu(request):
 	data = {"CmdType":"FindOnu","OnumacAddr":"0000",}
 	Mac = request.GET['FindMac']
@@ -12,19 +13,27 @@ def FindOnu(request):
 	ResponseOfServerfind = ''
 	try:
 		Reult = SendToUdpserver(json.dumps(data))
-		if Reult=='2001NOK':
-			ResponseOfServerfind = u"查询设备失败！"
+		if Reult=='None':
+			ResponseOfServerfind = u"连接服务器失败！"
 			Reult = ''
-		#elif Reult=='None':
-		#	ResponseOfServerfind = u"连接服务器失败！"
-		#	Reult = ''
-		#print Reult
+		else:
+			Reult = json.loads(Reult)
+			ResultFindOnu = Reult["Result"]
+			if ResultFindOnu == "-2":
+				ResponseOfServerfind = u"查询设备信息输入有误！"
+				Reult = ''
+			elif ResultFindOnu == "-1":
+				ResponseOfServerfind = u"当前设备未录入！"
+				Reult = ''
+			elif ResultFindOnu == "0":
+				ResponseOfServerfind = u"查询设备信息如下："
+				Reult = Reult["Info"]
+				print Reult
 	finally:
-		#AddOnuInfodata = u"当前提交信息为："+str(json.dumps(data))
 		c = Context({"ResponseOfServerfind":ResponseOfServerfind,"addonudatasfind":Reult})
 	return HttpResponse(t.render(c))
 
-
+###DiangoWeb新增测试设备请求
 def SendOnu(request):
 	data = {"CmdType":"AddOnu","data":{}}
 	Mode = request.GET['Mode']
@@ -40,20 +49,29 @@ def SendOnu(request):
 	data["data"]["User-Pwd"] = UserPwd
 	data["data"]["SN"] = SN
 	t = loader.get_template("addonu.html")
-	ResponseOfServer = u"连接服务器失败！"
+	ResponseOfServer = ''#连接提示信息
 	try:
 		Reult = SendToUdpserver(json.dumps(data))
-		if Reult=='1001OK':
-			ResponseOfServer = u"新增Onu设备成功"
-		elif Reult=='2001NOK':
-			ResponseOfServer = u"新增Onu设备失败！"
-		elif Reult=='None':
+		if Reult=='None':
 			ResponseOfServer = u"连接服务器失败！"
+			Reult = ''
+		else:
+			Reult = json.loads(Reult)
+			ResultFindOnu = Reult["Result"]
+			if ResultFindOnu == "-2":
+				ResponseOfServer = u"查询设备信息输入有误！"
+				Reult = data["data"]
+			elif ResultFindOnu == "0":
+				ResponseOfServer = u"查询设备信息录入成功！"
+				Reult = data
+			elif ResultFindOnu == "1":
+				ResponseOfServer = u"查询设备信息修改成功！"
+				Reult = data
 	finally:
-		AddOnuInfodata = u"当前提交信息为："+str(json.dumps(data))
-		c = Context({"ResponseOfServer":ResponseOfServer,"AddOnuInfodata":AddOnuInfodata})
+		c = Context({"ResponseOfServer":ResponseOfServer,"AddOnuInfodata":Reult})
 	return HttpResponse(t.render(c))
 
+####DiangoWeb异常流程对接测试请求
 def Addonurun(request):
 	data = {"CmdType":"OnuRun","OnumacAddr":"0000","data":{}}
 	data["OnumacAddr"] = str(request.GET["macAddr"])
@@ -66,20 +84,29 @@ def Addonurun(request):
 	data["data"]["ChaJianAA5"] =  str(request.GET["AA5"])
 	data["data"]["ChaJianAA6"] =  str(request.GET["AA6"])
 	t = loader.get_template("ceshi.html")
-	ResponseOfCeshi = u"连接服务器失败！"
+	ResponseOfCeshi = ''
 	try:
 		Reult = SendToUdpserver(json.dumps(data))
-		if Reult=='1001OK':
-			ResponseOfCeshi = u"新增Onu测试信息成功"
-		elif Reult=='2001NOK':
-			ResponseOfCeshi = u"新增Onu测试信息失败！"
-		elif Reult=='None':
+		if Reult=='None':
 			ResponseOfCeshi = u"连接服务器失败！"
+			Reult = ''
+		else:
+			Reult = json.loads(Reult)
+			ResultFindOnu = Reult["Result"]
+			if ResultFindOnu == "0":
+				ResponseOfCeshi = u"测试设备请求成功！"
+				Reult = data["data"]
+			elif ResultFindOnu == "-1":
+				ResponseOfCeshi = u"测试设备未录入！"
+				Reult = u"错误设备信息："+data["OnumacAddr"]
+			elif ResultFindOnu == "-2":
+				ResponseOfCeshi = u"测试设备信息有错误！"
+				Reult = u"错误设备信息："+data["OnumacAddr"]
 	finally:
-		AddOnuRun =u"当前提交信息为："+str(json.dumps(data))
-		c = Context({"ResponseOfCeshi":ResponseOfCeshi,"AddOnuRun":AddOnuRun})
+		c = Context({"ResponseOfCeshi":ResponseOfCeshi,"AddOnuRun":Reult})
 	return HttpResponse(t.render(c))
 
+####DiangoWeb网关能力测试请求
 def AddOnuCmd(request):
 	data = {"CmdType":"TestOnu","OnumacAddr":"0000","data":{}}
 	Cmdinfo = re.findall("1=(.*)",request.GET['cmdinfo'])
@@ -91,24 +118,56 @@ def AddOnuCmd(request):
 	data["OnumacAddr"] =  OnuMacAddr
 	data["data"] = OnuCmd
 	t = loader.get_template("wgnlcs.html")
-	ResponseOfOnuRun = u"连接服务器失败！"
+	ResponseOfOnuRun = ''
 	try:
 		Reult = SendToUdpserver(json.dumps(data))
-		if Reult=='1001OK':
-			ResponseOfOnuRun = u"新增Onu测试信息成功"
-		elif Reult=='2001NOK':
-			ResponseOfOnuRun = u"新增Onu测试信息失败！"
-		elif Reult=='None':
+		if Reult=='None':
 			ResponseOfOnuRun = u"连接服务器失败！"
+			Reult = ''
+		else:
+			Reult = json.loads(Reult)
+			ResultFindOnu = Reult["Result"]
+			if ResultFindOnu == "0":
+				ResponseOfOnuRun = u"测试设备请求成功！"
+				Reult = data["data"]
+			elif ResultFindOnu == "-1":
+				ResponseOfOnuRun = u"测试设备未录入！"
+				Reult = u"错误设备信息："+data["OnumacAddr"]
+			elif ResultFindOnu == "-2":
+				ResponseOfOnuRun = u"测试设备信息有错误！"
+				Reult = u"错误设备信息："+data["OnumacAddr"]
 	finally:
-		AddOnuCmddata =u"当前提交信息为："+str(json.loads((json.dumps(data))))
-		c = Context({"ResponseOfOnuRun":ResponseOfOnuRun,"AddOnuCmddata":AddOnuCmddata})
+		c = Context({"ResponseOfOnuRun":ResponseOfOnuRun,"AddOnuCmddata":Reult})
 	return HttpResponse(t.render(c))
 
-
+###DiangoWeb获取测试设备快照
 def GetKuaiZhao(request):
+	data = {"CmdType":"GetTestOnuInfo","OnumacAddr":"0000"}
+	data["OnumacAddr"] = str(request.GET["FindMac"])
 	t = loader.get_template("kuaizhao.html")
-	c = Context({})
+	ResponseOfServerfind = ''
+	try:
+		Reult = SendToUdpserver(json.dumps(data))
+		if Reult=='None':
+			ResponseOfServerfind = u"连接服务器失败！"
+			Reult = ''
+		else:
+			Reult = json.loads(Reult)
+			ResultFindOnu = Reult["Result"]
+			if ResultFindOnu == "0":
+				ResponseOfServerfind = u"测试设备请求成功！"
+				Reult = Reult["TestInfo"]["Flag"]
+			elif ResultFindOnu == "1":
+				ResponseOfServerfind = u"查询设备不属于待测试设备"
+				Reult = ''
+			elif ResultFindOnu == "-1":
+				ResponseOfServerfind = u"测试设备未录入！"
+				Reult = u"错误设备信息："+data["OnumacAddr"]
+			elif ResultFindOnu == "-2":
+				ResponseOfServerfind = u"测试设备信息有错误！"
+				Reult = u"错误设备信息："+data["OnumacAddr"]
+	finally:
+		c = Context({"ResponseOfServerfind":ResponseOfServerfind,"addonudatasfind":Reult})
 	return HttpResponse(t.render(c))
 
 
@@ -124,7 +183,6 @@ def addonu(request):
 	t = loader.get_template("addonu.html")
 	c = Context({})
 	return HttpResponse(t.render(c))
-
 def index(request):
 	t = loader.get_template("index.html")
 	c = Context({})
@@ -137,7 +195,6 @@ def wgnlcs(request):
 	t = loader.get_template("wgnlcs.html")
 	c = Context({})
 	return HttpResponse(t.render(c))
-
 def kuaizhao(request):
 	t = loader.get_template("kuaizhao.html")
 	c = Context({})
