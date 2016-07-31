@@ -52,9 +52,24 @@
                          </tr>
                         <tr>
                         <tr>
-                            <td height="40" colspan="2" align="center" style="padding-top: 2px;">
+                            <td height="40" colspan="4" align="center" style="padding-top: 2px;">
                                 <span  style="font-weight: bold; color: #666">{{ ResponseOfServerfind }}</span> <br>
-                                <span  style="font-weight: bold; color: #666">{{ addonudatasfind }}</span>
+                                <span  style="font-weight: bold; color: #666">{{ addonudatasfind }}</span><br>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td height="40" colspan="4" style="padding-top: 2px;">
+                                <li> (1)测试设备MAC:  {{ ONTMac }}</li><br>
+                                <li> (2)测试设备状态：{{ CmdFlag }}</li><br>
+                                <li> (3)远程下发命令:{{ CmdType }}</li><br>
+                                <li> aa)网关向分发平台注册:{{ FenFaBoot }}</li><br>
+                                <li> bb)网关向分发平台注册:{{ FenFaRegister }}</li><br>
+                                <li> a )网关向运营平台注册:{{ YunYingBoot }}</li><br>
+                                <li> b )网关向运营平台注册:{{ YunYingRegister }}</li><br>
+                                <li> c )心跳保活:{{ Hb }}</li><br>
+                                <li> d )反向触发网关连接到插件中心:{{ RequestPlugin}}</li><br>
+                                <li> e )反向触发网关重新注册:      {{ RequestDistri }}</li><br>
+                                <li> f )触发网关和插件中心断开连接:{{ Disconnect }}</li><br>
                             </td>
                         </tr>
                     </table>

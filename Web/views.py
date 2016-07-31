@@ -151,23 +151,84 @@ def GetKuaiZhao(request):
 		if Reult=='None':
 			ResponseOfServerfind = u"连接服务器失败！"
 			Reult = ''
+			ONTMac= ''
+			CmdFlag =''
+			CmdType = ''
+			Reult = ''
+			FenFaBoot = ''
+			FenFaRegister = ''
+			YunYingBoot = ''
+			YunYingRegister =''
+			Hb = ''
+			RequestPlugin = ''
+			RequestDistri  = ''
+			Disconnect = ''
 		else:
 			Reult = json.loads(Reult)
 			ResultFindOnu = Reult["Result"]
 			if ResultFindOnu == "0":
 				ResponseOfServerfind = u"测试设备请求成功！"
-				Reult = Reult["TestInfo"]["Flag"]
+				ONTMac =Reult["TestInfo"]["ONTMac"]
+				CmdFlag = Reult["TestInfo"]["CmdFlag"]
+				CmdType = Reult["TestInfo"]["CmdType"]
+				FenFaBoot =  Reult["TestInfo"]["FenFaBoot"]
+				FenFaRegister = Reult["TestInfo"]["FenFaRegister"]
+				YunYingBoot = Reult["TestInfo"]["YunYingBoot"]
+				YunYingRegister  = Reult["TestInfo"]["YunYingRegister"]
+				Hb = Reult["TestInfo"]["Hb"]
+				RequestPlugin = Reult["TestInfo"]["RequestPlug-in"]
+				RequestDistri  =Reult["TestInfo"]["RequestDistri"]
+				Disconnect =Reult["TestInfo"]["Disconnect"]
+				Reult = ''
 			elif ResultFindOnu == "1":
 				ResponseOfServerfind = u"查询设备不属于待测试设备"
+				ONTMac= ''
+				CmdFlag =''
+				CmdType = ''
 				Reult = ''
+				FenFaBoot = ''
+				FenFaRegister = ''
+				YunYingBoot = ''
+				YunYingRegister =''
+				Hb = ''
+				RequestPlugin = ''
+				RequestDistri  = ''
+				Disconnect = ''
 			elif ResultFindOnu == "-1":
 				ResponseOfServerfind = u"测试设备未录入！"
 				Reult = u"错误设备信息："+data["OnumacAddr"]
+				ONTMac= ''
+				CmdFlag =''
+				CmdType = ''
+				FenFaBoot = ''
+				FenFaRegister = ''
+				YunYingBoot = ''
+				YunYingRegister =''
+				Hb = ''
+				RequestPlugin = ''
+				RequestDistri  = ''
+				Disconnect = ''
 			elif ResultFindOnu == "-2":
 				ResponseOfServerfind = u"测试设备信息有错误！"
 				Reult = u"错误设备信息："+data["OnumacAddr"]
+				ONTMac= ''
+				CmdFlag =''
+				CmdType = ''
+				FenFaBoot = ''
+				FenFaRegister = ''
+				YunYingBoot = ''
+				YunYingRegister =''
+				Hb = ''
+				RequestPlugin = ''
+				RequestDistri  = ''
+				Disconnect = ''
 	finally:
-		c = Context({"ResponseOfServerfind":ResponseOfServerfind,"addonudatasfind":Reult})
+		c = Context({"ResponseOfServerfind":ResponseOfServerfind,"addonudatasfind":Reult,
+					 "ONTMac":ONTMac,"CmdFlag":CmdFlag,"CmdType":CmdType,
+					"FenFaBoot":FenFaBoot,"FenFaRegister":FenFaRegister,
+					 "YunYingBoot":YunYingBoot,"YunYingRegister":YunYingRegister,"Hb":Hb,
+					 "RequestPlugin":RequestPlugin,"RequestDistri":RequestDistri,"Disconnect":Disconnect
+					 })
 	return HttpResponse(t.render(c))
 
 
