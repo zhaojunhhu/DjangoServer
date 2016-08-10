@@ -45,3 +45,9 @@ h2{ color:#666; float:left; line-height:80px; }
 #mac_popup ul li{height: 25px;}
 #mac_popup li.mouseOver{background-color: gray;}
 #mac_popup li.mouseOut{background-color: #FFFFFF;}
+
+
+.sss li {
+height:10px; /*li的行高，可以控制li的间距*/
+width:100px; /*li的行高，可以控制li的间距*/
+}

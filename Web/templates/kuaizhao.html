@@ -37,31 +37,35 @@
 			</h1>
             <div class="ar-table">
                 <form action="/kuaizhaoinfo/" method="get">
-                    <table width="600" border="0" cellspacing="0" cellpadding="0">
+                    <table width="800" border="0" cellspacing="0" cellpadding="0">
                         <tr>
-                            <td height="20" colspan="2" >
+                            <ul height="20" colspan="2" >
                                 <div
                                     style="padding-top: 2px; width: 400px; float: left; padding-bottom: 2px;">
                                     <span>物理地址&nbsp;&nbsp;</span>
-                                    <input type="text " name="FindMac" id="MacID" style="width: 210px;" maxlength="12" value="112233445566" />
+                                    <input type="text " name="FindMac" id="MacID" style="width: 210px;" maxlength="12" value="" />
                                 </div>
-                            </td>
-                            <td height="20" colspan="2" align="center" style="padding-top: 2px;">
+                            </ul>
+                            <ul height="20" colspan="2" align="center" style="padding-top: 2px;">
                                 <input name="" type="submit" value="获取快照" class="button">
-                            </td>
+                            </ul>
                          </tr>
                         <tr>
                         <tr>
-                            <td height="40" colspan="4" align="center" style="padding-top: 2px;">
+                            <ul height="40" colspan="2" align="center" style="padding-top: 2px;">
                                 <span  style="font-weight: bold; color: #666">{{ ResponseOfServerfind }}</span> <br>
                                 <span  style="font-weight: bold; color: #666">{{ addonudatasfind }}</span><br>
-                            </td>
+                            </ul>
                         </tr>
                         <tr>
-                            <td height="40" colspan="4" style="padding-top: 2px;">
+                            <ul height="160" colspan="2" >
                                 <li> (1)测试设备MAC:  {{ ONTMac }}</li><br>
                                 <li> (2)测试设备状态：{{ CmdFlag }}</li><br>
                                 <li> (3)远程下发命令:{{ CmdType }}</li><br>
+                            </ul>
+                        </tr>
+                        <tr>
+                            <td height="40" colspan="2">
                                 <li> aa)网关向分发平台注册:{{ FenFaBoot }}</li><br>
                                 <li> bb)网关向分发平台注册:{{ FenFaRegister }}</li><br>
                                 <li> a )网关向运营平台注册:{{ YunYingBoot }}</li><br>
