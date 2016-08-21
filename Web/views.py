@@ -237,7 +237,7 @@ def test(request):
 	c = Context({})
 	return HttpResponse(t.render(c))
 def main(request):
-	t = loader.get_template("main.html")
+	t = loader.get_template("indexNew.html")
 	c = Context({})
 	return HttpResponse(t.render(c))
 def addonu(request):
